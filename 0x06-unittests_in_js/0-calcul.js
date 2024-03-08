@@ -1,9 +1,10 @@
 // Calculation function.
 
 function calculateNumber(a, b) {
-    fstInt = Math.round(a);
-    scndInt = Math.round(b);
-    return fstInt + scndInt;
+    const firstInt = Math.round(a);
+    const secondInt = Math.round(b);
+    return firstInt + secondInt;
 }
 
 module.exports = calculateNumber;
+
