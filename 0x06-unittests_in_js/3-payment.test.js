@@ -17,7 +17,7 @@ describe('Spy', function () {
     expect(spyUtils).to.have.been.called.once.with.exactly('SUM', 100, 20);
     expect(spyConsole).to.have.been.called.once.with.exactly('The total is: 120');
 
-    spyUtils.restore();
-    spyConsole.restore();
+    chai.spy.restore(spyUtils);
+    chai.spy.restore(spyConsole);
   });
 });
