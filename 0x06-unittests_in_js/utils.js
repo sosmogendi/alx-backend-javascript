@@ -1,4 +1,3 @@
-// utils.js
 
 const Utils = {
   calculateNumber(type, a, b) {

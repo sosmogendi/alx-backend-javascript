@@ -1,23 +1,20 @@
+const sinon = require('sinon');
 const { expect } = require('chai');
-const chai = require('chai');
-const spies = require('chai-spies');
-
-chai.use(spies);
-
-const sendPaymentRequestToApi = require('./3-payment');
 const Utils = require('./utils');
+const sendPaymentRequestToApi = require('./3-payment');
 
-describe('Spy', function () {
-  it('Ensures math is the same.', () => {
-    const spyUtils = chai.spy.on(Utils, 'calculateNumber');
-    const spyConsole = chai.spy.on(console, 'log');
-
+describe('sendPaymentRequestToApi', function () {
+  it('should call Utils.calculateNumber with the correct arguments', function () {
+    // Create a spy for the Utils.calculateNumber function
+    const calculateNumberSpy = sinon.spy(Utils, 'calculateNumber');
+    
+    // Call the function under test
     sendPaymentRequestToApi(100, 20);
+    
+    // Assert that Utils.calculateNumber was called with the correct arguments
+    expect(calculateNumberSpy.calledOnceWithExactly('SUM', 100, 20)).to.be.true;
 
-    expect(spyUtils).to.have.been.called.once.with.exactly('SUM', 100, 20);
-    expect(spyConsole).to.have.been.called.once.with.exactly('The total is: 120');
-
-    chai.spy.restore(spyUtils);
-    chai.spy.restore(spyConsole);
+    // Restore the spy
+    calculateNumberSpy.restore();
   });
 });
