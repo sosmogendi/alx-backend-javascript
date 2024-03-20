@@ -16,4 +16,3 @@ In this project, we explore various concepts related to asynchronous programming
 - **File Structure**: All your JavaScript files should end with the `.js` extension.
 - **Testing**: Your code will be tested using Jest, and you can run the tests using the command `npm run test`.
 - **Linting**: Your code will be verified against ESLint, so ensure that your code follows the ESLint rules.
-- **Exports**: All of your functions must be exported from their respective files.
