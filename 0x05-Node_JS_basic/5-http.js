@@ -1,5 +1,4 @@
 const http = require('http');
-const fs = require('fs');
 const countStudents = require('./3-read_file_async');
 
 const app = http.createServer((req, res) => {
@@ -7,22 +6,23 @@ const app = http.createServer((req, res) => {
   res.setHeader('Content-Type', 'text/plain');
 
   if (req.url === '/') {
-    res.end('Hello Holberton School!');
+    res.end('Hello Holberton School!\n');
   } else if (req.url === '/students') {
     const dbPath = process.argv[2];
     if (!dbPath) {
-      res.end('Database path is missing');
+      res.end('Database path is missing\n');
     } else {
       countStudents(dbPath)
         .then(() => {
-          res.end('Done!');
+          res.end();
         })
         .catch((error) => {
-          res.end(error.message);
+          res.end(error.message + '\n');
         });
     }
   } else {
-    res.end('Not Found');
+    res.statusCode = 404;
+    res.end('Not Found\n');
   }
 });
 
@@ -31,3 +31,4 @@ app.listen(1245, () => {
 });
 
 module.exports = app;
+
