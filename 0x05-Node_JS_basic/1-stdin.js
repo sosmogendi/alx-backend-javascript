@@ -1,14 +1,18 @@
-// Display the initial message
-console.log("Welcome to Holberton School, what is your name?");
+/**
+ * Prompts the user to enter their name, reads the input from STDIN,
+ * and displays a message containing the user's name.
+ *
+ * When the user ends the program, a closing message is displayed.
+ */
 
-// Listen for user input
-process.stdin.on("data", (data) => {
-  const name = data.toString().trim(); // Convert input to string and remove any trailing whitespace
-  console.log(`Your name is: ${name}`);
-  process.exit(0); // Gracefully exit after processing the input
+process.stdout.write("Welcome to Holberton School, what is your name?\n");
+
+process.stdin.on("data", (name) => {
+  const trimmedName = name.toString().trim();
+  process.stdout.write(`Your name is: ${trimmedName}\n`);
+  process.stdin.end();
 });
 
-// Handle program exit and display the final message
-process.on("exit", () => {
-  console.log("This important software is now closing");
+process.stdin.on("end", () => {
+  process.stdout.write("This important software is now closing\n");
 });
