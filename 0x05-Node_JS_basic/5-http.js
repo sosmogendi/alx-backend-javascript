@@ -1,34 +1,32 @@
 const http = require('http');
 const countStudents = require('./3-read_file_async');
 
-const app = http.createServer((req, res) => {
+const hostname = '127.0.0.1';
+const port = 1245;
+
+const app = http.createServer(async (req, res) => {
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/plain');
 
   if (req.url === '/') {
-    res.end('Hello Holberton School!\n');
+    res.end('Hello Holberton School!');
   } else if (req.url === '/students') {
-    const dbPath = process.argv[2];
-    if (!dbPath) {
-      res.end('Database path is missing\n');
-    } else {
-      countStudents(dbPath)
-        .then(() => {
-          res.end();
-        })
-        .catch((error) => {
-          res.end(error.message + '\n');
-        });
+    let dbInfo = 'This is the list of our students';
+    try {
+      await countStudents(process.argv[2]);
+      res.end(dbInfo);
+    } catch (err) {
+      dbInfo += err.message;
+      res.end(dbInfo);
     }
   } else {
     res.statusCode = 404;
-    res.end('Not Found\n');
+    res.end('Not Found');
   }
 });
 
-app.listen(1245, () => {
-  console.log('Server listening on port 1245');
+app.listen(port, hostname, () => {
+  console.log(`Server running at http://${hostname}:${port}`);
 });
 
 module.exports = app;
-
